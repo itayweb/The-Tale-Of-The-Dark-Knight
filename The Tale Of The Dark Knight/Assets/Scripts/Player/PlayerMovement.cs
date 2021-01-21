@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    bool IsPlayerOnGround()
+    public bool IsPlayerOnGround()
     {
         Collider2D groundCheck = Physics2D.OverlapCircle(groundCheckObj.position, groundCheckRadius, groundLayer);
         if (groundCheck != null)

@@ -5,12 +5,17 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    private PlayerMovement pm;
     private Rigidbody2D rb;
     private Animator anim;
+
+    private System.Random rnd = new System.Random();
+    private int attackState;
 
     // Start is called before the first frame update
     void Start()
     {
+        pm = GetComponent<PlayerMovement>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -28,9 +33,28 @@ public class PlayerAnimation : MonoBehaviour
             anim.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (!pm.IsPlayerOnGround())
         {
-            anim.SetTrigger("Jumping");
+            anim.SetBool("IsJumping", true);
+        }
+
+        else
+        {
+            anim.SetBool("IsJumping", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F)){
+            attackState = rnd.Next(1,2);
+            switch(attackState){
+                case 1:
+                    anim.SetTrigger("Attack1");                
+                    break;
+                case 2:
+                    anim.SetTrigger("Attack2");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
