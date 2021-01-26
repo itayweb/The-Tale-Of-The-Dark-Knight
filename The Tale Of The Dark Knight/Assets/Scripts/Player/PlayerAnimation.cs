@@ -8,8 +8,6 @@ public class PlayerAnimation : MonoBehaviour
     private PlayerMovement pm;
     private Rigidbody2D rb;
     private Animator anim;
-
-    private System.Random rnd = new System.Random();
     private int attackState;
 
     // Start is called before the first frame update
@@ -18,6 +16,7 @@ public class PlayerAnimation : MonoBehaviour
         pm = GetComponent<PlayerMovement>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        attackState = GetComponent<PlayerCombatSystem>().AttackStateShuffle();
     }
 
     // Update is called once per frame
@@ -44,7 +43,6 @@ public class PlayerAnimation : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.F)){
-            attackState = rnd.Next(1,2);
             switch(attackState){
                 case 1:
                     anim.SetTrigger("Attack1");                
